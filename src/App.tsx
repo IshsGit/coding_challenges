@@ -14,6 +14,11 @@ export function App() {
   const { data: transactionsByEmployee, ...transactionsByEmployeeUtils } = useTransactionsByEmployee()
   const [isLoading, setIsLoading] = useState(false)
 
- 
+  const transactions = useMemo(
+    () => paginatedTransactions?.data ?? transactionsByEmployee ?? null,
+    [paginatedTransactions, transactionsByEmployee]
+  )
+
+  
   
 }
