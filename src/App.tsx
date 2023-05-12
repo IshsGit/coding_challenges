@@ -26,4 +26,8 @@ export function App() {
     await employeeUtils.fetchAll()
     await paginatedTransactionsUtils.fetchAll()
 
+    setIsLoading(false)
+  }, [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils])
+
+ 
 }
