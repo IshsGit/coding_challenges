@@ -29,5 +29,26 @@ export function App() {
     setIsLoading(false)
   }, [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils])
 
- 
+  const loadTransactionsByEmployee = useCallback(
+    async (employeeId: string) => {
+      paginatedTransactionsUtils.invalidateData()
+      await transactionsByEmployeeUtils.fetchById(employeeId)
+    },
+    [paginatedTransactionsUtils, transactionsByEmployeeUtils]
+  )
+
+  useEffect(() => {
+    if (employees === null && !employeeUtils.loading) {
+      loadAllTransactions()
+    }
+  }, [employeeUtils.loading, employees, loadAllTransactions])
+
+  return (
+    <Fragment>
+      <main className="MainContainer">
+        <Instructions />
+
+        <hr className="RampBreak--l" />
+
+       
 }
