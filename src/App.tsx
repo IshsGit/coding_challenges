@@ -50,5 +50,43 @@ export function App() {
 
         <hr className="RampBreak--l" />
 
-       
+        <InputSelect<Employee>
+          isLoading={isLoading}
+          defaultValue={EMPTY_EMPLOYEE}
+          items={employees === null ? [] : [EMPTY_EMPLOYEE, ...employees]}
+          label="Filter by employee"
+          loadingLabel="Loading employees"
+          parseItem={(item) => ({
+            value: item.id,
+            label: `${item.firstName} ${item.lastName}`,
+          })}
+          onChange={async (newValue) => {
+            if (newValue === null) {
+              return
+            }
+
+            await loadTransactionsByEmployee(newValue.id)
+          }}
+        />
+
+        <div className="RampBreak--l" />
+
+        <div className="RampGrid">
+          <Transactions transactions={transactions} />
+
+          {transactions !== null && (
+            <button
+              className="RampButton"
+              disabled={paginatedTransactionsUtils.loading}
+              onClick={async () => {
+                await loadAllTransactions()
+              }}
+            >
+              View More
+            </button>
+          )}
+        </div>
+      </main>
+    </Fragment>
+  )
 }
