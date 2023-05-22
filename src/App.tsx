@@ -63,4 +63,34 @@ function App() {
         <InputSelect<Employee>
           isLoading={isLoading}
           defaultValue={EMPTY_EMPLOYEE}
-          items={
+          items={employees === null ? [] : [EMPTY_EMPLOYEE, ...employees]}
+          label="Filter by employee"
+          loadingLabel="Loading employees"
+          parseItem={(item) => ({
+            value: item.id,
+            label: `${item.firstName} ${item.lastName}`,
+          })}
+          onChange={handleSelectChange}
+        />
+
+        <div className="RampBreak--l" />
+
+        <div className="RampGrid">
+          <Transactions transactions={transactions} />
+
+          {transactions !== null && (
+            <button
+              className="RampButton"
+              disabled={paginatedTransactionsUtils.loading}
+              onClick={handleViewMoreClick}
+            >
+              View More
+            </button>
+          )}
+        </div>
+      </main>
+    </Fragment>
+  );
+}
+
+export default App;
